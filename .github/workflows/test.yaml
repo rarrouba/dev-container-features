@@ -32,7 +32,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        features: []
+        features:
+          - antidote
     steps:
       - uses: actions/checkout@v4
 
