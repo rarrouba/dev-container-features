@@ -11,26 +11,23 @@ dependencies(){
     if command -v wget > /dev/null; then
         return
     fi
-    if [ -f /etc/os-release ]; then
+
+    if [ -e /etc/os-release ]; then
         . /etc/os-release
-        if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
-            echo "Detected Debian/Ubuntu-based system"
-            
+    fi
+
+    case "${ID}" in
+        'debian' | 'ubuntu')
             apt-get update
             apt-get install -y --no-install-recommends \
                 wget \
                 ca-certificates
-        elif [[ "$ID" == "centos" || "$ID" == "rhel" || "$ID" == "almalinux" ]]; then
-            echo "Detected RHEL/CentOS/AlmaLinux-based system"
+        ;;
+        'fedora')
             dnf -y install wget
-        else
-            echo "Unsupported Linux distribution: $ID"
-            exit 1
-        fi
-    else
-        echo "Could not detect OS"
-        exit 1
-    fi
+        ;;
+        *) echo "The ${ID} distribution is not supported."; exit 1 ;;
+    esac
 }
 
 dependencies
