@@ -13,8 +13,7 @@ jobs:
     strategy:
       matrix:
         features:
-          - color
-          - hello
+          - antidote
         baseImage:
           - debian:latest
           - ubuntu:latest
