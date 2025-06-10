@@ -1,0 +1,11 @@
+{
+    "name": "Antidote (zsh)",
+    "id": "antidote-zsh",
+    "version": "1.0.0",
+    "description": "A feature for Antidote, a feature-complete Zsh implementation of the legacy Antibody plugin manager",
+    "options": {
+    },
+    "dependsOn": {
+        "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {}
+    }
+}
