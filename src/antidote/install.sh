@@ -43,6 +43,7 @@ wget --no-verbose -O /tmp/${LATEST_VERSION}.tar.gz ${DOWNLOAD_URL}
 # For more details, see https://containers.dev/implementors/features#user-env-var
 echo "The effective dev container remoteUser is '$_REMOTE_USER'"
 echo "The effective dev container remoteUser's home directory is '$_REMOTE_USER_HOME'"
+rm -rf ${ZDOTDIR:-$_REMOTE_USER_HOME}/.antidote
 mkdir ${ZDOTDIR:-$_REMOTE_USER_HOME}/.antidote
 tar -xzf /tmp/${LATEST_VERSION}.tar.gz -C ${ZDOTDIR:-$_REMOTE_USER_HOME}/.antidote  --strip-components=1
 
@@ -50,8 +51,9 @@ echo "The effective dev container containerUser is '$_CONTAINER_USER'"
 echo "The effective dev container containerUser's home directory is '$_CONTAINER_USER_HOME'"
 # Run commands only if home directories are different
 if [ "$_CONTAINER_USER_HOME" != "$_REMOTE_USER_HOME" ]; then
-    mkdir ${ZDOTDIR:-$_REMOTE_USER_HOME}/.antidote
-    tar -xzf /tmp/${LATEST_VERSION}.tar.gz -C ${ZDOTDIR:-$_REMOTE_USER_HOME}/.antidote  --strip-components=1
+    rm -rf ${ZDOTDIR:-$_CONTAINER_USER_HOME}/.antidote
+    mkdir ${ZDOTDIR:-$_CONTAINER_USER_HOME}/.antidote
+    tar -xzf /tmp/${LATEST_VERSION}.tar.gz -C ${ZDOTDIR:-$_CONTAINER_USER_HOME}/.antidote  --strip-components=1
 fi
 
 # Cleanup
